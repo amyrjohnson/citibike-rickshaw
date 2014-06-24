@@ -57,3 +57,19 @@ pre {
 #github {
   z-index: 2;
 }
+
+.square{
+    width: 400px;
+    height:400px;
+    border-bottom: 5px solid #000;
+}
+
+.v{
+    border-left:1px solid #000;
+    border-right:1px solid #000;
+}
+
+.h{
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
+}

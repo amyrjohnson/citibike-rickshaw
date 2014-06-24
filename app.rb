@@ -5,7 +5,7 @@ Dir.glob('./lib/*.rb') do |model|
   require model
 end
 
-module Name
+module TicTacToeProject
   class App < Sinatra::Application
 
     #configure
@@ -22,6 +22,25 @@ module Name
     #routes
     get '/' do
       erb :index
+    end
+
+    post '/play' do 
+      erb :play
+
+    end
+
+    get '/play' do 
+      erb :play
+    end
+
+    post '/move' do
+      @game ||= PlayGame.new
+      @game.play(params["move"])
+      erb :move
+    end
+
+    get '/move' do
+      erb :move
     end
 
     #helpers
