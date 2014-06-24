@@ -22,12 +22,14 @@ class PlayGame
             self.player2.number = -1
     end
 
-    def play(move)
-        move = move.to_i
+    def play(form_input)
+        num = form_input.to_i
         if self.win == false
             # alternate_players
-            #move = self.next_player.move(@gameboard) #tell player object to choose move
-            gameboard.move(next_player, move) #then tell board to update itself
+             #tell player object to choose move
+            gameboard.move(next_player, num) #then tell board to update itself
+            puts "Printing gameboard from game.play"
+            puts gameboard.board
             self.win = true if gameboard.win? || gameboard.tie?  #alternate moves until win == true 
         else
             game_over

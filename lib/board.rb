@@ -8,7 +8,7 @@ class Matrix
      end
 end
 
-class GameBoard
+class GameBoard 
     attr_accessor :board
     #board starts empty
     #board updates when players move and keeps track
@@ -19,11 +19,14 @@ class GameBoard
         @turns = 0
     end
 
-    def move(player, position)
+    def move(player, num_from_form)
         #check if postion is empty
+        position = convert_move(num_from_form)
         @board[position[0],position[1]] = player.number if @board[position[0], position[1]] == 0
         @turns += 1
         @player = player
+        puts "Printing gameboard from game.board.move"
+        puts @board
     end
 
     def moves

@@ -7,7 +7,8 @@ end
 
 module TicTacToeProject
   class App < Sinatra::Application
-
+    @@game = PlayGame.new
+    puts "creating a new game"
     #configure
     configure do
       set :root, File.dirname(__FILE__)
@@ -18,28 +19,35 @@ module TicTacToeProject
     set :database, "sqlite3:///database.db"
 
     #filters
+      puts "Printing board from App class:"
+      puts @@game.gameboard.board
 
     #routes
     get '/' do
       erb :index
     end
 
-    post '/play' do 
-      erb :play
-
-    end
+    # post '/play' do 
+    #   @game = @@game
+    #   erb :play
+    # end
 
     get '/play' do 
+      @game = @@game
       erb :play
     end
 
-    post '/move' do
-      @game ||= PlayGame.new
-      @game.play(params["move"])
-      erb :move
-    end
+    # post '/move' do
+    #   @game = @@game
+    #   @@game.play(params["move"])
+    #   erb :move
+    # end
 
     get '/move' do
+      @@game.play(params["move"])
+      puts "just made a move!"
+      puts @@game.gameboard.board
+      @game = @@game
       erb :move
     end
 
