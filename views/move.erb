@@ -4,9 +4,6 @@
 
 <h2>Good move!</h2>
 
-<h3><%=params["move"]%></h3>
-<h3><%= @game.square(1,1) %></h3>
-
 <div id="board">
     <table>
       <tr id="row1">
@@ -27,7 +24,6 @@
     </table>
 </div>
 
-<h3><%= @game.gameboard.board %></h3>
 
 <form action="/play" method="get">
   <input type="Submit" value="next move">

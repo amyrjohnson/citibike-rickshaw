@@ -34,7 +34,7 @@ class PlayGame
     end
 
     def square(r,c)
-        gameboard.board[r,c].to_s
+        gameboard.display_square(r,c)
     end
 
     def game_over
@@ -82,5 +82,21 @@ class PlayGame
 
     def next_player
         @player1 #for now just let human play
+    end
+
+    def valid_move?(params_input)
+        if (params_input.to_i).between?(1,9)
+            coors = convert_move(params_input.to_i)
+            if gameboard.moves.include?(coors)
+                puts "valid move!!"
+                true
+            else
+                puts "invalid move!!"
+                false
+            end
+        else
+            puts "invalid move!!"
+            false
+        end
     end
 end

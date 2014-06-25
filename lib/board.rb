@@ -87,15 +87,13 @@ class GameBoard
     end
 
 
-    def display_squares
-        @board.collect do |square|
-            if square == -1
-                "X"
-            elsif square == 1
-                "O"
-            else
-                "0"
-            end
+    def display_square(r,c)
+        if @board[r,c] == -1
+            "X"
+        elsif @board[r,c] == 1
+            "O"
+        else
+            "_"
         end
     end
 end

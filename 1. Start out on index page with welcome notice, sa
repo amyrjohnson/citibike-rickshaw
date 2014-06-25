@@ -14,13 +14,18 @@
 
 
 
-change numbers to markers on board
-
-get win page to successfully load
-
 change computer move to non-random
 
+change marker choice/who goes first
+
 disallow invalid moves
+
+styles
+
+fix tie bug (needs to go one more move)
+
+change to radio buttions
+
 
 
 
