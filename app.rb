@@ -25,7 +25,7 @@ module TicTacToeProject
 
     #routes
     get '/' do
-      session[:game] ||= PlayGame.new
+      session[:game] = PlayGame.new
       erb :index
     end
 
@@ -47,10 +47,22 @@ module TicTacToeProject
 
     get '/move' do
       session[:game].play(params["move"])
-      puts "just made a move!"
-      puts session[:game].gameboard.board
       @game = session[:game]
+      if session[:game].win
+        redirect to('/gameover')
+      else
+         session[:game].computer_play(session[:game].computer_choice)
+          if  session[:game].lose || session[:game].tie
+              redirect to('/gameover')
+          end
+      end
       erb :move
+    end
+
+    get '/gameover' do
+      @game = session[:game]
+      erb :gameover
+      # session[:game] = PlayGame.new()
     end
 
     #helpers

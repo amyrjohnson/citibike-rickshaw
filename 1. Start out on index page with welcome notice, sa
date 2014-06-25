@@ -16,9 +16,11 @@
 
 change numbers to markers on board
 
-check for win
+get win page to successfully load
 
-figure out computer move
+change computer move to non-random
 
 disallow invalid moves
+
+
 

@@ -19,9 +19,8 @@ class GameBoard
         @turns = 0
     end
 
-    def move(player, num_from_form)
+    def move(player, position)
         #check if postion is empty
-        position = convert_move(num_from_form)
         @board[position[0],position[1]] = player.number if @board[position[0], position[1]] == 0
         @turns += 1
         @player = player
@@ -87,28 +86,6 @@ class GameBoard
         Matrix.columns([cols[2], cols[1], cols[0]])
     end
 
-    def convert_move(move)
-        case move
-        when 1
-            [0,0]
-        when 2
-            [0,1]
-        when 3
-            [0,2]
-        when 4
-            [1,0]
-        when 5
-            [1,1]
-        when 6
-            [1,2]
-        when 7
-            [2,0]
-        when 8
-            [2,1]
-        when 9
-            [2,2]
-        end
-    end
 
     def display_squares
         @board.collect do |square|
