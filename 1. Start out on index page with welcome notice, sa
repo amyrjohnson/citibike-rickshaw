@@ -8,3 +8,17 @@
 7. render board again wiht computer's move
 8. game ends when there's a win or a tie
 9. option to play again
+
+
+<!--         <%=game.gameboard.board[0,0]%> -->
+
+
+
+change numbers to markers on board
+
+check for win
+
+figure out computer move
+
+disallow invalid moves
+

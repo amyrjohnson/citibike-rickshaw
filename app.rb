@@ -4,11 +4,12 @@ Bundler.require
 Dir.glob('./lib/*.rb') do |model|
   require model
 end
+enable :sessions
 
 module TicTacToeProject
   class App < Sinatra::Application
-    @@game = PlayGame.new
-    puts "creating a new game"
+    # @@game = PlayGame.new
+    # puts "creating a new game"
     #configure
     configure do
       set :root, File.dirname(__FILE__)
@@ -19,11 +20,12 @@ module TicTacToeProject
     set :database, "sqlite3:///database.db"
 
     #filters
-      puts "Printing board from App class:"
-      puts @@game.gameboard.board
+      # puts "Printing board from App class:"
+      # puts session[:game].gameboard.board
 
     #routes
     get '/' do
+      session[:game] ||= PlayGame.new
       erb :index
     end
 
@@ -33,7 +35,7 @@ module TicTacToeProject
     # end
 
     get '/play' do 
-      @game = @@game
+      @game = session[:game]
       erb :play
     end
 
@@ -44,10 +46,10 @@ module TicTacToeProject
     # end
 
     get '/move' do
-      @@game.play(params["move"])
+      session[:game].play(params["move"])
       puts "just made a move!"
-      puts @@game.gameboard.board
-      @game = @@game
+      puts session[:game].gameboard.board
+      @game = session[:game]
       erb :move
     end
 
