@@ -1,13 +1,14 @@
 require 'bundler'
 Bundler.require
+require 'gon-sinatra'
 
 Dir.glob('./lib/*.rb') do |model|
   require model
 end
-enable :sessions
 
-module TicTacToeProject
+module RickShawProject
   class App < Sinatra::Application
+    register Gon::Sinatra
     #configure
     configure do
       set :root, File.dirname(__FILE__)
@@ -15,49 +16,23 @@ module TicTacToeProject
     end
 
     #database
-    set :database, "sqlite3:///database.db"
+    # set :database, "sqlite3:///database.db"
 
     #filters
 
     #routes
     get '/' do
-      session[:game] = PlayGame.new
+      @stuff = [1, 2, 3, 4, 5]
+      gon.stuff = @stuff
       erb :index
     end
 
-
-    get '/play' do 
-      @game = session[:game]
-      erb :play
+    get '/realtime' do
+      @fakebikedata = SampleModel.generate_random_seed_data
+      gon.fakebikedata = @fakebikedata
+      erb :realtime
     end
 
-    get '/move' do
-      unless session[:game].valid_move?(params["move"])
-        redirect to ('/error')
-      end
-
-      session[:game].play(params["move"])
-      @game = session[:game]
-
-      if session[:game].win
-        redirect to('/gameover')
-      else
-         session[:game].computer_play(session[:game].computer_choice)
-          if  session[:game].lose || session[:game].tie
-              redirect to('/gameover')
-          end
-      end
-      erb :move
-    end
-
-    get '/error' do
-      erb :error
-    end
-
-    get '/gameover' do
-      @game = session[:game]
-      erb :gameover
-    end
 
     #helpers
     helpers do

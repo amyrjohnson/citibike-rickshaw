@@ -1,30 +1,32 @@
-<h1>Tic Tac Toe</h1>
-<h2></h2>
-<!-- Maybe start out on index page with intro and send to a /play page? -->
-<body>
+<!doctype>
+<h3><%= include_gon %></h3>
 
-<form action="/play" method="get">
-  <input type="Submit" value="Start">
-</form>
+<link type="text/css" rel="stylesheet" href="/css/graph.css">
+<link type="text/css" rel="stylesheet" href="/css/lines.css">
 
-<div id="board">
-    <table>
-      <tr id="row1">
-        <td class="square">1</td>
-        <td class="square v">2</td>
-        <td class="square">3</td>
-      </tr>
-      <tr id="row2">
-        <td class="square h">4</td>
-        <td class="square v h">5</td>
-        <td class="square h">6</td>
-      </tr>
-      <tr id="row3">
-        <td class="square">7</td>
-        <td class="square v">8</td>
-        <td class="square">9</td>
-      </tr>
-    </table>
-</div>
+<script src="/js/d3.v3.js"></script>
 
-</body>
+<script src="/js/rickshaw.min.js"></script>
+
+<div id="chart"></div>
+
+<script>
+alert("Hello");
+alert(gon.stuff);
+var graph = new Rickshaw.Graph( {
+  element: document.getElementById("chart"),
+  renderer: 'line',
+  series: [
+    {
+      data: [ { x: 0, y: gon.stuff[0] }, { x: 1, y: gon.stuff[1] }, { x: 2, y: gon.stuff[2] }, { x: 3, y: gon.stuff[3] }, { x: 4, y: gon.stuff[4] } ],
+      color: 'steelblue'
+    }, {
+      data: [ { x: 0, y: 19 }, { x: 1, y: 22 }, { x: 2, y: 32 }, { x: 3, y: 20 }, { x: 4, y: 21 } ],
+      color: 'lightblue'
+    }
+  ]
+} );
+
+graph.render();
+
+</script>

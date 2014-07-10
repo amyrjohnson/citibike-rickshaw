@@ -21,3 +21,8 @@ if ya want haml and sass, be on the look for classy.
 ### Development
    * [shotgun](https://github.com/rtomayko/shotgun)
    * [tux](http://tagaholic.me/2011/04/10/tux-a-sinatra-console.html)
+
+
+##convert to realtime graph thing
+##make it be random data
+##then make it be the citibike data
