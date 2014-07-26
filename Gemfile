@@ -8,7 +8,7 @@ gem "sinatra-activerecord"
 gem "rake"
 gem "gon-sinatra"
 gem "faraday"
-gem 'sqlite3'
+# gem 'sqlite3'
 gem 'json'
 gem 'pry'
 gem 'resque', "~> 1.22.0"
