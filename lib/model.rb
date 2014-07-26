@@ -4,7 +4,7 @@ class SampleModel
         data = []
         i=1
         150.times do 
-            data << {x: i, y: rand(1..200)}
+            data << {x: i, y: rand(2500..3000)}
             i += 1
         end
         data

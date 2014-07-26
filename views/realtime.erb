@@ -51,7 +51,7 @@
 <div id="content">
 
     <form id="side_panel">
-        <h1>Random Data in the Future</h1>
+        <h1>CitiBike Station Data</h1>
         <section><div id="legend"></div></section>
         <section>
             <div id="renderer_form" class="toggler">
@@ -114,34 +114,57 @@
 
 </div>
 
+
+
 <script>
- var url = "http://www.citibikenyc.com/stations/json?callback=?"
-jQuery.getJSON(url, function(data) { console.log(data)});
+ // var url = "http://www.citibikenyc.com/stations/json?callback=?"
+// jQuery.getJSON(url, function(data) { console.log(data)});
+
+
 
 // var myurl = "http://www.citibikenyc.com/stations/json"
-// jQuery.ajax({
-//     url: myurl,
-//     type: 'GET',
-//     dataType: "jsonp",
-//     crossDomain: true,
-//     success: function(json){
-//         alert("Success");
-//     },
-//     error:function(){
-//         alert("Error");
-//     }
-// });
+
+function exampleFunction(exampleData)  {
+    console.log(exampleData);
+}
+
+var exampleurl = "http://api.citybik.es/citi-bike-nyc.json"
+// var jsonfeed
+
+
+// var seriesData = gon.fakebikedata;
+
 
 // set up our data series with 150 random data points
-// var bikeData = 
 
-var seriesData = gon.fakebikedata;
-// var random = new Rickshaw.Fixtures.RandomData(150);
+// var seriesData = [[{x: 1, y: 3}, {x: 2, y: 3}, {x: 3, y: 4}]];
+// var seriesData = [gon.fakebikedata];
+var seriesData = [[],[],[]]
+var timeInterval = 150
+// var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
-// for (var i = 0; i < 150; i++) {
-//     random.addData(seriesData);
-// }
 
+var timeBase = Math.floor(new Date().getTime() / 1000);
+
+function newAddData(data, citibikes) {
+
+    var index = data[0].length;
+
+    var counter = 1;
+
+    data.forEach( function(series) {
+
+     series.push( { x: (index * timeInterval) + timeBase, y: citibikes } );
+    } );
+
+};
+
+
+
+
+for (var i = 0; i < 150; i++) {
+    newAddData(seriesData, (Math.floor(Math.random() * 3000) + 1));
+}
 
 var palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
 
@@ -157,35 +180,20 @@ var graph = new Rickshaw.Graph( {
     series: [
         {
             color: palette.color(),
-            data: seriesData,
-            name: 'Moscow'
-        }
+            data: seriesData[0],
+            name: 'Midtown'
+        },
 
-        // {
-        //  color: palette.color(),
-        //  data: seriesData[1],
-        //  name: 'Shanghai'
-        // }, {
-        //  color: palette.color(),
-        //  data: seriesData[2],
-        //  name: 'Amsterdam'
-        // }, {
-        //  color: palette.color(),
-        //  data: seriesData[3],
-        //  name: 'Paris'
-        // }, {
-        //  color: palette.color(),
-        //  data: seriesData[4],
-        //  name: 'Tokyo'
-        // }, {
-        //  color: palette.color(),
-        //  data: seriesData[5],
-        //  name: 'London'
-        // }, {
-        //  color: palette.color(),
-        //  data: seriesData[6],
-        //  name: 'New York'
-        // }
+        {
+         color: palette.color(),
+         data: seriesData[1],
+         name: 'Downtown'
+        }
+        , {
+         color: palette.color(),
+         data: seriesData[2],
+         name: 'Brooklyn'
+        }
     ]
 } );
 
@@ -260,33 +268,70 @@ var controls = new RenderControls( {
 
 // add some data every so often
 
-var messages = [
-    "Changed home page welcome message",
-    "Minified JS and CSS",
-    "Changed button color from blue to green",
-    "Refactored SQL query to use indexed columns",
-    "Added additional logging for debugging",
-    "Fixed typo",
-    "Rewrite conditional logic for clarity",
-    "Added documentation for new methods"
-];
 
-setInterval( function() {
-    random.removeData(seriesData);
-    random.addData(seriesData);
-    graph.update();
+function newRemoveData(data) {
+    data.forEach( function(series) {
+        series.shift();
+    } );
+    timeBase += timeInterval;
+};
 
-}, 3000 );
 
-function addAnnotation(force) {
-    if (messages.length > 0 && (force || Math.random() >= 0.95)) {
-        annotator.add(seriesData[2][seriesData[2].length-1].x, messages.shift());
-        annotator.update();
-    }
+//farthest east station in manhattan lng -73975748
+//farthest west in north brooklyn lng -73971000, lat 40705311
+// farthest west station in brooklyn lng -73999978
+function sortNeighborhoods(json){
+    var midtownBikes = 0;
+    var brooklynBikes = 0;
+    var downtownBikes = 0;
+       for(var i = 0; i < json.length; i++){
+            console.log(json[i]["lat"]);
+            console.log(json[i]["lng"]);
+            if(json[i]["lng"] >= -73971000 || (json[i]["lat"] <= 40705311 && json[i]["lng"] >= -73999978)){
+            brooklynBikes += json[i]["bikes"]
+            }else if(json[i]["lat"] > 40740895){
+            midtownBikes += json[i]["bikes"]
+            }else if(json[i]["lat"] <= 40740895){
+            downtownBikes += json[i]["bikes"]
+            };
+       };
+    newAddData([seriesData[0]], midtownBikes);
+    newAddData([seriesData[1]], downtownBikes);
+    newAddData([seriesData[2]], brooklynBikes);
 }
 
-addAnnotation(true);
-setTimeout( function() { setInterval( addAnnotation, 6000 ) }, 6000 );
+
+
+setInterval( function() {
+    newRemoveData(seriesData);
+    jQuery.ajax({
+        url: exampleurl,
+        type: 'GET',
+        dataType: "jsonp",
+        crossDomain: true,
+        success: function(json){
+            sortNeighborhoods(json);
+        },
+        error: function(){
+           newAddData([seriesData[0]], seriesData[0][seriesData[0].length - 1]["y"]);
+           newAddData([seriesData[1]], seriesData[1][seriesData[1].length - 1]["y"]);
+           newAddData([seriesData[2]], seriesData[2][seriesData[2].length - 1]["y"]);
+        }
+    });
+    // random.addData(seriesData);
+    graph.update();
+
+}, 2000 );
+
+// function addAnnotation(force) {
+//     if (messages.length > 0 && (force || Math.random() >= 0.95)) {
+//         annotator.add(seriesData[2][seriesData[2].length-1].x, messages.shift());
+//         annotator.update();
+//     }
+// }
+
+// addAnnotation(true);
+// setTimeout( function() { setInterval( addAnnotation, 6000 ) }, 6000 );
 
 var previewXAxis = new Rickshaw.Graph.Axis.Time({
     graph: preview.previews[0],

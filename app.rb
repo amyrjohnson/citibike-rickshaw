@@ -10,7 +10,8 @@ module RickShawProject
   class App < Sinatra::Application
     register Gon::Sinatra
     #configure
-    configure do
+   
+ configure do
       set :root, File.dirname(__FILE__)
       set :public_folder, 'public'
     end
@@ -26,8 +27,8 @@ module RickShawProject
       gon.stuff = @stuff
       erb :index
     end
-
     get '/realtime' do
+      Resque.enqueue(HistoricalCitibikData, args)
       @fakebikedata = SampleModel.generate_random_seed_data
       gon.fakebikedata = @fakebikedata
       erb :realtime
