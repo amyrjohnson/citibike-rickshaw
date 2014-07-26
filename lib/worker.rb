@@ -14,13 +14,12 @@ end
 puts "hello world"
 
 task :update_stations  do
-    loop do 
-      puts "Getting JSON feed"
-      puts "updating database"
-      puts "removing old datapoints"
-      # NewsFeed.update
-      puts "done."
-      sleep 15
-    end
+  puts "Getting JSON feed"
+  puts "updating database"
+  Neighborhood.add_data
+  Neighborhood.interpolate
+  puts "removing old datapoints"
+  Neighborhood.remove_data
+  puts "done."
 end
 

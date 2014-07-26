@@ -8,10 +8,11 @@ gem "sinatra-activerecord"
 gem "rake"
 gem "gon-sinatra"
 gem "faraday"
-# gem 'sqlite3'
+gem 'pg'
 gem 'json'
 gem 'pry'
 gem 'resque', "~> 1.22.0"
+gem 'httparty'
 
 group :development do
   gem "shotgun"

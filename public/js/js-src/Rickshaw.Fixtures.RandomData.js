@@ -11,17 +11,17 @@ Rickshaw.Fixtures.RandomData = function(timeInterval) {
 
 	this.addData = function(data, citibikes) {
 
-		// var randomValue = Math.random() * 100 + 15 + lastRandomValue;
-		// var index = data[0].length;
+		var randomValue = Math.random() * 100 + 15 + lastRandomValue;
+		var index = data[0].length;
 
-		// var counter = 1;
+		var counter = 1;
 
-		// data.forEach( function(series) {
+		data.forEach( function(series) {
 
-		// 	series.push( { x: (index * timeInterval) + timeBase, y: citibikes } );
-		// } );
+			series.push( { x: (index * timeInterval) + timeBase, y: citibikes } );
+		} );
 
-		// lastRandomValue = randomValue * 0.85;
+		lastRandomValue = randomValue * 0.85;
 	};
 
 	this.removeData = function(data) {

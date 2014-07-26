@@ -25,12 +25,17 @@ GEM
       multipart-post (>= 1.2, < 3)
     gon-sinatra (0.1.0)
       sinatra
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.4)
     json (1.8.1)
     method_source (0.8.2)
     minitest (4.7.5)
     multi_json (1.7.7)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
+    pg (0.17.1)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -86,7 +91,9 @@ DEPENDENCIES
   activerecord
   faraday
   gon-sinatra
+  httparty
   json
+  pg
   pry
   rake
   resque (~> 1.22.0)
