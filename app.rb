@@ -28,7 +28,6 @@ module RickShawProject
       erb :index
     end
     get '/realtime' do
-      Resque.enqueue(HistoricalCitibikData, args)
       @fakebikedata = SampleModel.generate_random_seed_data
       gon.fakebikedata = @fakebikedata
       erb :realtime
