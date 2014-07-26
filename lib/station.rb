@@ -8,6 +8,7 @@ class Station < ActiveRecord::Base
       stations.each_with_index do |station, index|
       s = Station.new
         s.tap do |x|
+          x.neighborhood = "Brooklyn"
           x.station_id = station["id"]
           x.name = station["stationName"]
           x.total_docks = station["totalDocks"]
@@ -22,3 +23,4 @@ class Station < ActiveRecord::Base
   end 
 
 end 
+

@@ -285,8 +285,6 @@ function sortNeighborhoods(json){
     var brooklynBikes = 0;
     var downtownBikes = 0;
        for(var i = 0; i < json.length; i++){
-            console.log(json[i]["lat"]);
-            console.log(json[i]["lng"]);
             if(json[i]["lng"] >= -73971000 || (json[i]["lat"] <= 40705311 && json[i]["lng"] >= -73999978)){
             brooklynBikes += json[i]["bikes"]
             }else if(json[i]["lat"] > 40740895){
