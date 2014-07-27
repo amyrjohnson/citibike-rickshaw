@@ -28,8 +28,8 @@ module RickShawProject
       erb :index
     end
     get '/realtime' do
-      @fakebikedata = SampleModel.generate_random_seed_data
-      gon.fakebikedata = @fakebikedata
+      @bikedata =  SeedGraph.seed_graph_from_db
+      gon.bikedata = @bikedata
       erb :realtime
     end
 

@@ -132,14 +132,15 @@ var exampleurl = "http://api.citybik.es/citi-bike-nyc.json"
 // var jsonfeed
 
 
-// var seriesData = gon.fakebikedata;
+// var bikeData = gon.bikedata;
+// console.log(bikeData)
 
 
 // set up our data series with 150 random data points
 
 // var seriesData = [[{x: 1, y: 3}, {x: 2, y: 3}, {x: 3, y: 4}]];
 // var seriesData = [gon.fakebikedata];
-var seriesData = [[],[],[]]
+var seriesData = gon.bikedata;
 var timeInterval = 150
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
@@ -162,9 +163,9 @@ function newAddData(data, citibikes) {
 
 
 
-for (var i = 0; i < 150; i++) {
-    newAddData(seriesData, (Math.floor(Math.random() * 3000) + 1));
-}
+// for (var i = 0; i < 150; i++) {
+//     newAddData(seriesData, (Math.floor(Math.random() * 3000) + 1));
+// }
 
 var palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
 
