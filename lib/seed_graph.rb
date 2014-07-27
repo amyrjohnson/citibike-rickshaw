@@ -19,12 +19,10 @@ class SeedGraph
         downtown_data = []
 
         db_data = Neighborhood.all
-        i=1
         db_data.each do |data_point| 
-            brooklyn_data << {x: i, y: data_point.brooklyn}
-            midtown_data << {x: i, y: data_point.midtown}
-            downtown_data << {x: i, y: data_point.downtown}
-            i += 1
+            brooklyn_data << data_point.brooklyn
+            midtown_data << data_point.midtown
+            downtown_data << data_point.downtown
         end
         data << midtown_data
         data << downtown_data
