@@ -37,6 +37,7 @@ class Neighborhood < ActiveRecord::Base
         midtown_increment = ((this_entry.midtown - prev_entry.midtown).to_f)/10.0
         downtown_increment = ((this_entry.downtown - prev_entry.downtown).to_f)/10.0
 
+        #change this to be robust for getting off schedule i.e. > 10 min
         (1..9).each do |i|
             n = Neighborhood.new
             n.tap do |nabe|
@@ -52,7 +53,7 @@ class Neighborhood < ActiveRecord::Base
 
 
   def self.remove_data
-    oldest_entries = Neighborhood.find(:all, :order => "graph_timestamp desc", :limit => 10)
+    oldest_entries = Neighborhood.find(:all, :order => "id asc", :limit => 10)
     if Neighborhood.all.count > 24*60
         oldest_entries.each do |x|
             x.destroy
