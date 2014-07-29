@@ -128,7 +128,7 @@ function exampleFunction(exampleData)  {
     console.log(exampleData);
 }
 
-var exampleurl = "http://api.citybik.es/citi-bike-nyc.json"
+var citibikeurl = "http://api.citybik.es/citi-bike-nyc.json"
 // var jsonfeed
 
 
@@ -143,11 +143,11 @@ var exampleurl = "http://api.citybik.es/citi-bike-nyc.json"
 var bikeData = gon.bikedata;
 console.log(bikeData)
 var seriesData = [[],[],[]]
-var timeInterval = 150
+var timeInterval = 60
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
 
-var timeBase = Math.floor(new Date().getTime() / 1000);
+var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
 
 function newAddData(data, citibikes) {
 
@@ -310,7 +310,7 @@ function sortNeighborhoods(json){
 setInterval( function() {
     newRemoveData(seriesData);
     jQuery.ajax({
-        url: exampleurl,
+        url: citibikeurl,
         type: 'GET',
         dataType: "jsonp",
         crossDomain: true,
