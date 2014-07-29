@@ -33,18 +33,19 @@ class Neighborhood < ActiveRecord::Base
     prev_entry = interpolatation_points[1]
 
     if this_entry && prev_entry
-        brooklyn_increment = ((this_entry.brooklyn - prev_entry.brooklyn).to_f)/10.0
-        midtown_increment = ((this_entry.midtown - prev_entry.midtown).to_f)/10.0
-        downtown_increment = ((this_entry.downtown - prev_entry.downtown).to_f)/10.0
+        time_difference_min = ((this_entry.graph_timestamp - prev_entry.graph_timestamp).to_f)/60
+        brooklyn_increment = ((this_entry.brooklyn - prev_entry.brooklyn).to_f)/time_difference_min
+        midtown_increment = ((this_entry.midtown - prev_entry.midtown).to_f)/time_difference_min
+        downtown_increment = ((this_entry.downtown - prev_entry.downtown).to_f)/time_difference_min
 
         #change this to be robust for getting off schedule i.e. > 10 min
-        (1..9).each do |i|
+        (1...time_difference_min).each do |i|
             n = Neighborhood.new
             n.tap do |nabe|
                 nabe.brooklyn = prev_entry.brooklyn + i*brooklyn_increment
                 nabe.midtown = prev_entry.midtown + i*midtown_increment
                 nabe.downtown = prev_entry.downtown + i*downtown_increment
-                nabe.graph_timestamp = (Time.now - 60).to_datetime
+                nabe.graph_timestamp = (Time.now - 60*(time_difference_min - i)).to_datetime
             end
             n.save
         end
