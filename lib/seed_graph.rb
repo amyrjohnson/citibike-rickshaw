@@ -17,9 +17,11 @@ class SeedGraph
         brooklyn_data = []
         midtown_data = []
         downtown_data = []
+        graph_timestamps = []
 
         db_data = Neighborhood.order(graph_timestamp: :asc)
         db_data.each do |data_point| 
+            graph_timestamps << data_point.graph_timestamp
             brooklyn_data << data_point.brooklyn
             midtown_data << data_point.midtown
             downtown_data << data_point.downtown
@@ -27,6 +29,7 @@ class SeedGraph
         data << midtown_data
         data << downtown_data
         data << brooklyn_data
+        data << graph_timestamps
 
         data
     end
