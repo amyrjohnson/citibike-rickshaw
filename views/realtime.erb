@@ -163,9 +163,9 @@ function newAddData(data, citibikes, timestamp, interval) {
 };
 
 for (var i = 0; i < bikeData[0].length; i++) {
-    newAddData([seriesData[0]], bikeData[0][i],60, bikeData[3][i]);
-    newAddData([seriesData[1]], bikeData[1][i],60, bikeData[3][i]);
-    newAddData([seriesData[2]], bikeData[2][i],60, bikeData[3][i]);
+    newAddData([seriesData[0]], bikeData[0][i],60, Date.parse("bikeData[3][i]"));
+    newAddData([seriesData[1]], bikeData[1][i],60, Date.parse("bikeData[3][i]"));
+    newAddData([seriesData[2]], bikeData[2][i],60, Date.parse("bikeData[3][i]"));
 }
 
 
