@@ -164,17 +164,17 @@ function newAddData(data, citibikes, interval) {
 
 };
 
-function streamAddData(data, citibikes, interval) {
-    var index = bikeData[0].length
+// function streamAddData(data, citibikes, interval) {
+//     var index = bikeData[0].length
 
-    // var counter = 1;
-    var timeInterval = interval
-    data.forEach( function(series) {
+//     // var counter = 1;
+//     var timeInterval = interval
+//     data.forEach( function(series) {
 
-     series.push( { x: streamBase, y: citibikes } );
-    } );
+//      series.push( { x: streamBase, y: citibikes } );
+//     } );
 
-};
+// };
 
 
 for (var i = 0; i < bikeData[0].length; i++) {
@@ -317,9 +317,9 @@ function sortNeighborhoods(json){
             downtownBikes += json[i]["bikes"]
             };
        };
-    streamAddData([seriesData[0]], midtownBikes,60);
-    streamAddData([seriesData[1]], downtownBikes,60);
-    streamAddData([seriesData[2]], brooklynBikes,60);
+    newAddData([seriesData[0]], midtownBikes,60);
+    newAddData([seriesData[1]], downtownBikes,60);
+    newAddData([seriesData[2]], brooklynBikes,60);
 }
 
 
