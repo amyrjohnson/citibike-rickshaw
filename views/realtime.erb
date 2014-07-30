@@ -276,10 +276,11 @@ var controls = new RenderControls( {
 // add some data every so often
 
 
-function newRemoveData(data) {
+function newRemoveData(data, interval) {
     data.forEach( function(series) {
         series.shift();
     } );
+    var timeInterval = interval
     timeBase += timeInterval;
 };
 
@@ -308,7 +309,7 @@ function sortNeighborhoods(json){
 
 
 setInterval( function() {
-    newRemoveData(seriesData);
+    newRemoveData(seriesData,2);
     jQuery.ajax({
         url: citibikeurl,
         type: 'GET',
