@@ -143,13 +143,13 @@ var citibikeurl = "http://api.citybik.es/citi-bike-nyc.json"
 var bikeData = gon.bikedata;
 console.log(bikeData)
 var seriesData = [[],[],[]]
-var timeInterval = 60
+// var timeInterval = 60
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
 
 var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
 
-function newAddData(data, citibikes) {
+function newAddData(data, citibikes, timeInterval) {
 
     var index = data[0].length;
 
@@ -163,9 +163,9 @@ function newAddData(data, citibikes) {
 };
 
 for (var i = 0; i < bikeData[0].length; i++) {
-    newAddData([seriesData[0]], bikeData[0][i]);
-    newAddData([seriesData[1]], bikeData[1][i]);
-    newAddData([seriesData[2]], bikeData[2][i]);
+    newAddData([seriesData[0]], bikeData[0][i],60);
+    newAddData([seriesData[1]], bikeData[1][i],60);
+    newAddData([seriesData[2]], bikeData[2][i],60);
 }
 
 
@@ -300,9 +300,9 @@ function sortNeighborhoods(json){
             downtownBikes += json[i]["bikes"]
             };
        };
-    newAddData([seriesData[0]], midtownBikes);
-    newAddData([seriesData[1]], downtownBikes);
-    newAddData([seriesData[2]], brooklynBikes);
+    newAddData([seriesData[0]], midtownBikes,2);
+    newAddData([seriesData[1]], downtownBikes,2);
+    newAddData([seriesData[2]], brooklynBikes,2);
 }
 
 
@@ -318,9 +318,9 @@ setInterval( function() {
             sortNeighborhoods(json);
         },
         error: function(){
-           newAddData([seriesData[0]], seriesData[0][seriesData[0].length - 1]["y"]);
-           newAddData([seriesData[1]], seriesData[1][seriesData[1].length - 1]["y"]);
-           newAddData([seriesData[2]], seriesData[2][seriesData[2].length - 1]["y"]);
+           newAddData([seriesData[0]], seriesData[0][seriesData[0].length - 1]["y"],2);
+           newAddData([seriesData[1]], seriesData[1][seriesData[1].length - 1]["y"],2);
+           newAddData([seriesData[2]], seriesData[2][seriesData[2].length - 1]["y"],2);
         }
     });
     // random.addData(seriesData);
