@@ -141,10 +141,9 @@ var citibikeurl = "http://api.citybik.es/citi-bike-nyc.json"
 // var seriesData = [[{x: 1, y: 3}, {x: 2, y: 3}, {x: 3, y: 4}]];
 // var seriesData = [gon.fakebikedata];
 var bikeData = gon.bikedata;
-console.log(bikeData);
 var seriesData = [[],[],[]]
 var timeInterval = 60
-// var scrollInterval = 2
+var scrollInterval = 2
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
 
@@ -282,7 +281,7 @@ function newRemoveData(data) {
     data.forEach( function(series) {
         series.shift();
     } );
-    timeBase += timeInterval
+    timeBase += scrollInterval
 };
 
 
