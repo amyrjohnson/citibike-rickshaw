@@ -169,7 +169,6 @@ function streamAddData(data, citibikes, interval) {
 
     // var counter = 1;
     var timeInterval = interval
-    var timestamp = time
     data.forEach( function(series) {
 
      series.push( { x: currentTime, y: citibikes } );
