@@ -143,19 +143,17 @@ var citibikeurl = "http://api.citybik.es/citi-bike-nyc.json"
 var bikeData = gon.bikedata;
 console.log(bikeData);
 var seriesData = [[],[],[]]
-// var timeInterval = 60
+var timeInterval = 60
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
 
 var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
-var streamBase = timeBase + (bikeData[0].length*60)
 
-function newAddData(data, citibikes, interval) {
+
+function newAddData(data, citibikes) {
 
     var index = data[0].length;
 
-    // var counter = 1;
-    var timeInterval = interval
     data.forEach( function(series) {
 
      series.push( { x: (index * timeInterval) + timeBase, y: citibikes } );
@@ -164,23 +162,11 @@ function newAddData(data, citibikes, interval) {
 
 };
 
-// function streamAddData(data, citibikes, interval) {
-//     var index = bikeData[0].length
-
-//     // var counter = 1;
-//     var timeInterval = interval
-//     data.forEach( function(series) {
-
-//      series.push( { x: streamBase, y: citibikes } );
-//     } );
-
-// };
-
 
 for (var i = 0; i < bikeData[0].length; i++) {
-    newAddData([seriesData[0]], bikeData[0][i],60);
-    newAddData([seriesData[1]], bikeData[1][i],60);
-    newAddData([seriesData[2]], bikeData[2][i],60);
+    newAddData([seriesData[0]], bikeData[0][i]);
+    newAddData([seriesData[1]], bikeData[1][i]);
+    newAddData([seriesData[2]], bikeData[2][i]);
 }
 
 
@@ -291,12 +277,10 @@ var controls = new RenderControls( {
 // add some data every so often
 
 
-function newRemoveData(data, interval) {
+function newRemoveData(data) {
     data.forEach( function(series) {
         series.shift();
     } );
-    var timeInterval = interval
-    streamBase += timeInterval;
 };
 
 
@@ -307,7 +291,6 @@ function sortNeighborhoods(json){
     var midtownBikes = 0;
     var brooklynBikes = 0;
     var downtownBikes = 0;
-    var timeNow = Math.floor((new Date().getTime() / 1000)) 
        for(var i = 0; i < json.length; i++){
             if(json[i]["lng"] >= -73971000 || (json[i]["lat"] <= 40705311 && json[i]["lng"] >= -73999978)){
             brooklynBikes += json[i]["bikes"]
@@ -317,15 +300,15 @@ function sortNeighborhoods(json){
             downtownBikes += json[i]["bikes"]
             };
        };
-    newAddData([seriesData[0]], midtownBikes,60);
-    newAddData([seriesData[1]], downtownBikes,60);
-    newAddData([seriesData[2]], brooklynBikes,60);
+    newAddData([seriesData[0]], midtownBikes);
+    newAddData([seriesData[1]], downtownBikes);
+    newAddData([seriesData[2]], brooklynBikes);
 }
 
 
 
 setInterval( function() {
-    newRemoveData(seriesData,60);
+    newRemoveData(seriesData);
     jQuery.ajax({
         url: citibikeurl,
         type: 'GET',
@@ -335,9 +318,9 @@ setInterval( function() {
             sortNeighborhoods(json);
         },
         error: function(){
-           newAddData([seriesData[0]], seriesData[0][seriesData[0].length - 1]["y"],60);
-           newAddData([seriesData[1]], seriesData[1][seriesData[1].length - 1]["y"],60);
-           newAddData([seriesData[2]], seriesData[2][seriesData[2].length - 1]["y"],60);
+           newAddData([seriesData[0]], seriesData[0][seriesData[0].length - 1]["y"]);
+           newAddData([seriesData[1]], seriesData[1][seriesData[1].length - 1]["y"]);
+           newAddData([seriesData[2]], seriesData[2][seriesData[2].length - 1]["y"]);
         }
     });
     // random.addData(seriesData);
