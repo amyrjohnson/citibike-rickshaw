@@ -149,12 +149,12 @@ var seriesData = [[],[],[]]
 
 var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
 
-function newAddData(data, citibikes, timeInterval) {
+function newAddData(data, citibikes, interval) {
 
     var index = data[0].length;
 
     // var counter = 1;
-
+    var timeInterval = interval
     data.forEach( function(series) {
 
      series.push( { x: (index * timeInterval) + timeBase, y: citibikes } );
