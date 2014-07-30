@@ -144,6 +144,7 @@ var bikeData = gon.bikedata;
 console.log(bikeData);
 var seriesData = [[],[],[]]
 var timeInterval = 60
+var scrollInterval = 2
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
 
@@ -281,7 +282,7 @@ function newRemoveData(data) {
     data.forEach( function(series) {
         series.shift();
     } );
-    timeBase += timeInterval
+    timeBase += scrollInterval
 };
 
 
