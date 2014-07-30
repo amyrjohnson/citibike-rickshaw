@@ -142,7 +142,6 @@ var citibikeurl = "http://api.citybik.es/citi-bike-nyc.json"
 // var seriesData = [gon.fakebikedata];
 var bikeData = gon.bikedata;
 console.log(bikeData);
-console.log(Date.parse("bikeData[3][i]"));
 var seriesData = [[],[],[]]
 // var timeInterval = 60
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
@@ -150,23 +149,41 @@ var seriesData = [[],[],[]]
 
 var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
 
-function newAddData(data, citibikes, timestamp, interval) {
+function newAddData(data, citibikes, interval) {
 
     var index = data[0].length;
 
     // var counter = 1;
     var timeInterval = interval
+    var timestamp = time
     data.forEach( function(series) {
 
      series.push( { x: (index * timeInterval) + timeBase, y: citibikes } );
+
     } );
 
 };
 
+function streamAddData(data, citibikes, interval) {
+    var currentTime = Math.floor((new Date().getTime() / 1000))
+    var index = data[0].length;
+
+    // var counter = 1;
+    var timeInterval = interval
+    var timestamp = time
+    data.forEach( function(series) {
+
+     series.push( { x: currentTime, y: citibikes } );
+
+    } );
+
+};
+
+
 for (var i = 0; i < bikeData[0].length; i++) {
-    newAddData([seriesData[0]], bikeData[0][i],60, Date.parse("bikeData[3][i]"));
-    newAddData([seriesData[1]], bikeData[1][i],60, Date.parse("bikeData[3][i]"));
-    newAddData([seriesData[2]], bikeData[2][i],60, Date.parse("bikeData[3][i]"));
+    newAddData([seriesData[0]], bikeData[0][i],60);
+    newAddData([seriesData[1]], bikeData[1][i],60);
+    newAddData([seriesData[2]], bikeData[2][i],60);
 }
 
 
@@ -293,6 +310,7 @@ function sortNeighborhoods(json){
     var midtownBikes = 0;
     var brooklynBikes = 0;
     var downtownBikes = 0;
+    var timeNow = Math.floor((new Date().getTime() / 1000)) 
        for(var i = 0; i < json.length; i++){
             if(json[i]["lng"] >= -73971000 || (json[i]["lat"] <= 40705311 && json[i]["lng"] >= -73999978)){
             brooklynBikes += json[i]["bikes"]
@@ -302,9 +320,9 @@ function sortNeighborhoods(json){
             downtownBikes += json[i]["bikes"]
             };
        };
-    newAddData([seriesData[0]], midtownBikes,2);
-    newAddData([seriesData[1]], downtownBikes,2);
-    newAddData([seriesData[2]], brooklynBikes,2);
+    streamAddData([seriesData[0]], midtownBikes,2);
+    streamAddData([seriesData[1]], downtownBikes,2);
+    streamAddData([seriesData[2]], brooklynBikes,2);
 }
 
 
