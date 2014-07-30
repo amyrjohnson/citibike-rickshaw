@@ -141,7 +141,6 @@ var citibikeurl = "http://api.citybik.es/citi-bike-nyc.json"
 // var seriesData = [[{x: 1, y: 3}, {x: 2, y: 3}, {x: 3, y: 4}]];
 // var seriesData = [gon.fakebikedata];
 var bikeData = gon.bikedata;
-var dataCount = 0
 console.log(bikeData);
 var seriesData = [[],[],[]]
 // var timeInterval = 60
@@ -149,6 +148,7 @@ var seriesData = [[],[],[]]
 
 
 var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
+var streamBase = timeBase + (bikeData[0].length*60)
 
 function newAddData(data, citibikes, interval) {
 
@@ -171,8 +171,7 @@ function streamAddData(data, citibikes, interval) {
     var timeInterval = interval
     data.forEach( function(series) {
 
-     series.push( { x: (dataCount * timeInterval)+(index * 60) + timebase, y: citibikes } );
-     dataCount += 1
+     series.push( { x: streamBase, y: citibikes } );
     } );
 
 };
@@ -297,7 +296,7 @@ function newRemoveData(data, interval) {
         series.shift();
     } );
     var timeInterval = interval
-    timeBase += timeInterval;
+    streamBase += timeInterval;
 };
 
 
