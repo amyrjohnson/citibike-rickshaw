@@ -336,9 +336,9 @@ setInterval( function() {
             sortNeighborhoods(json);
         },
         error: function(){
-           newAddData([seriesData[0]], seriesData[0][seriesData[0].length - 1]["y"],2);
-           newAddData([seriesData[1]], seriesData[1][seriesData[1].length - 1]["y"],2);
-           newAddData([seriesData[2]], seriesData[2][seriesData[2].length - 1]["y"],2);
+           newAddData([seriesData[0]], seriesData[0][seriesData[0].length - 1]["y"],60);
+           newAddData([seriesData[1]], seriesData[1][seriesData[1].length - 1]["y"],60);
+           newAddData([seriesData[2]], seriesData[2][seriesData[2].length - 1]["y"],60);
         }
     });
     // random.addData(seriesData);
