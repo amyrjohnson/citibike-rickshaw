@@ -23,9 +23,9 @@ module RickShawProject
 
     #routes
     get '/' do
-      @stuff = [1, 2, 3, 4, 5]
-      gon.stuff = @stuff
-      erb :index
+      @bikedata =  SeedGraph.seed_graph_from_db
+      gon.bikedata = @bikedata
+      erb :realtime
     end
     get '/realtime' do
       @bikedata =  SeedGraph.seed_graph_from_db
