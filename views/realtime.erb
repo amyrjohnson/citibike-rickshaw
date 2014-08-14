@@ -151,8 +151,8 @@ var scrollInterval = 2
 // var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
 
-var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
-
+// var timeBase = Math.floor((new Date().getTime() / 1000)) - (24*60*60);
+var timeBase = Math.floor((new Date().getTime() / 1000)) - ((bikeData[0].length)*60);
 
 function newAddData(data, citibikes) {
 
@@ -167,6 +167,7 @@ function newAddData(data, citibikes) {
 };
 
 console.log(timeBase);
+console.log((bikeData[0].length));
 
 
 for (var i = 0; i < bikeData[0].length; i++) {
