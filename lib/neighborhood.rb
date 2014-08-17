@@ -54,11 +54,9 @@ class Neighborhood < ActiveRecord::Base
 
 
   def self.remove_data
-    oldest_entries = Neighborhood.find(:all, :order => "id asc", :limit => 10)
-    if Neighborhood.all.count > 24*60
-        oldest_entries.each do |x|
-            x.destroy
-        end
+    oldest_entries = Neighborhood.find(:all, :order => "id asc")
+    until Neighborhood.all.count <= 24*60
+        oldest_entries.first.destroy
     end
   end
 
