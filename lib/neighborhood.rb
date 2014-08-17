@@ -54,7 +54,7 @@ class Neighborhood < ActiveRecord::Base
 
 
   def self.remove_data
-    oldest_entries = Neighborhood.where("created_at < :day", {:day => 2.days.ago})
+    oldest_entries = Neighborhood.where("created_at < :day", {:day => (Time.now - (2*24*60*60))})
     if Neighborhood.all.count > 24*60
         oldest_entries.each do |x|
           x.destroy
